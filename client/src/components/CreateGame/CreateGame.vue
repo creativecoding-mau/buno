@@ -1,9 +1,17 @@
 <template>
-  <div>
-    <h2 class="inputText">Create new game!</h2>
-    <input class="gameInput" v-model="gameName" v-on:keydown.enter="postGame" type="text" placehoder="Game">
-    <button class="submitButton" @click="postGame">Submit</button>
-  </div>
+  <v-container grid-list-md text-xs-center>
+    <v-layout row wrap>
+      <v-flex xs12>
+            <h2 class="inputText">Create new game!</h2>
+      </v-flex>
+      <v-flex xs12>
+             <input class="gameInput" v-model="gameName" v-on:keydown.enter="postGame" type="text" placehoder="DankGamez">
+      </v-flex>
+      <v-flex xs12>
+               <button class="submitButton" @click="postGame">Create Game</button>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
@@ -36,13 +44,8 @@ export default {
 }
 
 .submitButton {
-    text-align: center;
     cursor: pointer;
     padding: 1rem;
-    
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 </style>
