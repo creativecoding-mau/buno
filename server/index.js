@@ -32,7 +32,12 @@ app.get('/listGames', (req, res) => {
 // Creates a game instance.
 // TODO: Make this route create a game object in database.
 app.post('/createGame', (req, res) => {
-    console.log('Nothing here yet.')
+  app.post('/createGame', (req, res) => { // Gissar på att det är så här det ska se ut //Felix
+    let response = req.body;              // gif serviceAccountKey
+    let gameName = response.gameName;
+    console.log(`Full response: ${response}`);
+    console.log(`Game Name: ${gameName}`);
+  });
 });
 
 // Deletes a game instance.
