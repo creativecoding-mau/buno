@@ -1,28 +1,41 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div class="flexContainer">
+          <Header />
+          <ChooseName />
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import ChooseName from './components/ChooseName/ChooseName.vue'
+import Header from './components/Header/Header.vue'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    Header,
+    ChooseName,
   }
 }
 </script>
 
 <style>
+
+html, body, #app {
+  height: 100%;
+  margin: 0;
+}
+
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: 'Alegreya Sans SC', sans-serif;
+
+  display: flex;
+  flex-direction: column;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+}
+
+.flexContainer {
+    flex: 1 0 auto;
 }
 </style>
