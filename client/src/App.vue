@@ -2,7 +2,15 @@
   <div id="app">
     <div class="flexContainer">
           <Header />
-          <ChooseName />
+          <div class="chooseName" v-if="nameChosen === null">
+             <ChooseName @nameIsChosen="setName" />
+          </div>
+          <div class="createGame" v-else-if="nameChosen != null">
+            <create-game @gameIsCreated="gameCreated" />
+          </div>
+    </div>
+    <div>
+
     </div>
   </div>
 </template>
@@ -10,12 +18,30 @@
 <script>
 import ChooseName from './components/ChooseName/ChooseName.vue'
 import Header from './components/Header/Header.vue'
+import CreateGame from "./components/CreateGame/CreateGame.vue"
 
 export default {
   name: 'app',
+  data: function() {
+    return {
+      nameChosen: null,
+      userGame: null
+    }
+  },
   components: {
     Header,
     ChooseName,
+    CreateGame
+  },
+  methods: {
+    setName(name) {
+      this.nameChosen = name
+      console.log(this.nameChosen)
+    },
+    gameCreated(gameName) {
+      this.userGame = gameName
+      console.log(this.userGame)
+    }
   }
 }
 </script>

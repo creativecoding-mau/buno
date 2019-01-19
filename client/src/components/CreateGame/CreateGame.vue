@@ -1,8 +1,8 @@
 <template>
   <div>
-    <h2 class="inputText">Enter name</h2>
-    <input class="nameInput" v-model="name" v-on:keydown.enter="postName" type="text" placehoder="Name">
-    <button class="submitButton" @click="postName">Submit</button>
+    <h2 class="inputText">Create new game!</h2>
+    <input class="gameInput" v-model="gameName" v-on:keydown.enter="postGame" type="text" placehoder="Game">
+    <button class="submitButton" @click="postGame">Submit</button>
   </div>
 </template>
 
@@ -12,15 +12,15 @@ const axios = require("axios");
 export default {
   data: function() {
     return {
-      name: "lol"
+      gameName: ""
     };
   },
 
   methods: {
-    postName() {
-      console.log('Name is chosen!')  
-      axios.post('http://192.168.0.49:3000/newPlayer', {userName: this.name})
-      this.$emit("nameIsChosen", this.name)
+    postGame() {
+      console.log('Game Created')
+      axios.post('http://192.168.0.49:3000/createGame', {gameName: this.gameName})
+      this.$emit("gameIsCreated", this.gameName)
     }
   }
 };
@@ -28,7 +28,7 @@ export default {
 
 <style scoped>
 
-.nameInput {
+.gameInput {
     padding: 1.2rem;
     width: 10rem;
     background-color: grey;
