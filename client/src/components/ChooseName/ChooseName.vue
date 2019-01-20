@@ -30,7 +30,7 @@ export default {
       console.log('Name is chosen!')
       let uid = uuidv1();
       let postUser = {
-        userName: this.name,
+        displayName: this.name,
         uid: uid
       }
       console.log(postUser)  
