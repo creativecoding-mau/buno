@@ -16,6 +16,7 @@
 
 <script>
 const axios = require("axios");
+const uuidv1 = require('uuid/v1');
 
 export default {
   data: function() {
@@ -26,8 +27,14 @@ export default {
 
   methods: {
     postName() {
-      console.log('Name is chosen!')  
-      axios.post('http://192.168.0.49:3000/newPlayer', {userName: this.name})
+      console.log('Name is chosen!')
+      let uid = uuidv1();
+      let postUser = {
+        userName: this.name,
+        uid: uid
+      }
+      console.log(postUser)  
+      axios.post('http://localhost:3000/newPlayer', postUser)
       this.$emit("nameIsChosen", this.name)
     }
   }
