@@ -64,6 +64,15 @@ app.post("/newPlayer", (req, res) => {
   let response = req.body;
   let name = response.userName;
 
+  usersRef.push({
+    displayName: name,
+  });
+
+  console.log(`Name: ${name}`);
+  console.log(`uid: ${uid}`);
+});
+
+app.get("/getToken", (req, res) {
   let uid = uuidv1();
 
   admin
@@ -77,14 +86,6 @@ app.post("/newPlayer", (req, res) => {
     .catch(function(error) {
       console.log("Error creating custom token:", error);
     });
-
-  usersRef.push({
-    displayName: name,
-    uid: uid
-  });
-
-  console.log(`Name: ${name}`);
-  console.log(`uid: ${uid}`);
-});
+})
 
 app.listen(port, () => console.log(`Server listening on port ${port}!`));
