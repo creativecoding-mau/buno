@@ -89,4 +89,5 @@ lerna-debug.log
 Thumbs.db
 
 # API keys etc
-secret.js
+serviceAccountKey.json
+firebaseConfig.js

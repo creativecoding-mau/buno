@@ -83,12 +83,12 @@ app.delete("/deleteGame", (req, res) => {
 // POST request for registering a new player.
 app.post("/newPlayer", (req, res) => {
   let response = req.body;
-  let name = response.userName;
-  let uid = uuidv1();
+  let displayName = response.displayName;
+  let uid = response.uid;
   
   admin.auth().createUser({
     uid: uid,
-    displayName: name,
+    displayName: displayName,
   })
     .then(function(userRecord) {
       // See the UserRecord reference doc for the contents of userRecord.
@@ -99,8 +99,6 @@ app.post("/newPlayer", (req, res) => {
       console.log("Error creating new user:", error);
     });
 
-  console.log(`Name: ${name}`);
-  console.log(`uid: ${uid}`);
 });
 
 app.listen(port, () => console.log(`Server listening on port ${port}!`));
