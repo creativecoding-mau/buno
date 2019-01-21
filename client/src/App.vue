@@ -8,6 +8,7 @@
           <div class="createGame" v-else-if="nameChosen != null">
             <create-game @gameIsCreated="gameCreated" />
           </div>
+          <GameList />
     </div>
     <div>
 
@@ -18,7 +19,8 @@
 <script>
 import ChooseName from './components/ChooseName/ChooseName.vue'
 import Header from './components/Header/Header.vue'
-import CreateGame from "./components/CreateGame/CreateGame.vue"
+import CreateGame from './components/CreateGame/CreateGame.vue'
+import GameList from './components/GameList/GameList.vue'
 
 export default {
   name: 'app',
@@ -31,7 +33,8 @@ export default {
   components: {
     Header,
     ChooseName,
-    CreateGame
+    CreateGame,
+    GameList,
   },
   methods: {
     setName(name) {

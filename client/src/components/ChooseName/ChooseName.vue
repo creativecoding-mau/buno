@@ -8,7 +8,7 @@
              <input class="nameInput" v-model="name" v-on:keydown.enter="postName" type="text" placehoder="Name">
       </v-flex>
       <v-flex xs12>
-           <button class="submitButton" @click="postName">Submit</button>
+           <button class="submitButton" @click="postName">Submit </button>
       </v-flex>
     </v-layout>
   </v-container>
@@ -51,7 +51,7 @@ export default {
 .nameInput {
     color: white;
     padding: 1.2rem;
-    width: 10rem;
+    width: 20rem;
     background-color: rgba(0, 132, 255, 0.3);
     font-size: 2.8rem;
 }
@@ -61,9 +61,17 @@ export default {
 }
 
 .submitButton {
+    font-size: 1.6rem;
+    font-weight: 400;
     cursor: pointer;
-    padding: 1rem;
-  
+    padding: 1.2rem;
+    border: 1px solid rgba(0, 132, 255, 0.3);
+    transition: 2s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.submitButton:hover {
+  background-color: rgba(0, 132, 255, 0.8);
+  color: white;
 }
 
 </style>
