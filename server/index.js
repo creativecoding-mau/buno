@@ -5,10 +5,14 @@ const bodyParser = require("body-parser");
 const port = 3000;
 const admin = require("firebase-admin");
 const serviceAccount = require("./serviceAccountKey.json");
-const uuidv1 = require('uuid/v1');
 
+// ALlows CORS VERY IMPORTANT DO NOT REMOVE
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
-app.options("*", cors()); // Activate CORS on server.
 app.use(bodyParser.json()); // JSON-parser. Nice to have when fetching data from POST req.
 
 admin.initializeApp({
@@ -22,38 +26,23 @@ const gamesRef = ref.child("Games");
 
 // This route is a test environment for pushing/getting data to/from Firebase.
 app.get("/data", (req, res) => {
-  gamesRef.push({
-    gameName: "poliGame",
-    deck: {
-      blue: 3,
-      red: 6
-    },
-    users: {
-      userId: "namn1",
-      userId: "hdaifuhdf"
-    }
-  });
+  console.log("Nothing here atm...");
 });
-
-// Returns an array of all active games.
-// TODO: Get an array with all gameNames in database.
-app.get("/listGames", (req, res) => {
-  console.log("Nothing here yet.");
-});
-
 
 // Console logs all users in database.
 app.get("/listUsers", (req, res) => {
   function listAllUsers(nextPageToken) {
     // List batch of users, 1000 at a time.
-    admin.auth().listUsers(1000, nextPageToken)
+    admin
+      .auth()
+      .listUsers(1000, nextPageToken)
       .then(function(listUsersResult) {
         listUsersResult.users.forEach(function(userRecord) {
           console.log("user", userRecord.toJSON());
         });
         if (listUsersResult.pageToken) {
           // List next batch of users.
-          listAllUsers(listUsersResult.pageToken)
+          listAllUsers(listUsersResult.pageToken);
         }
       })
       .catch(function(error) {
@@ -66,13 +55,42 @@ app.get("/listUsers", (req, res) => {
 
 // Creates a game instance.
 // TODO: Make this route create a game object in database.
-app.post('/createGame', (req, res) => {
-  let response = req.body;              
+app.post("/createGame", (req, res) => {
+  let response = req.body;
   let gameName = response.gameName;
+
+  gamesRef.push({
+    gameName: gameName,
+    deck: {
+      blue: 3,
+      red: 6
+    },
+    users: {
+      userId: "namn1",
+      userId: "hdaifuhdf"
+    }
+  });
   console.log(`Full response: ${response}`);
   console.log(`Game Name: ${gameName}`);
 });
 
+app.get("/listGameNames", (req, res) => {
+  
+
+  gamesRef.once('value', function(snapshot) {
+    var gameNames = [];
+    snapshot.forEach(function(childSnapshot) {
+      var childData = childSnapshot.val();
+      gameNames.push(childData.gameName);
+      console.log(childData.gameName);
+      // ...
+    });
+    console.log(gameNames);
+    res.send(gameNames);
+  });
+
+  
+});
 
 // Deletes a game instance.
 // TODO: Make this route delete a game object in database.
@@ -85,11 +103,13 @@ app.post("/newPlayer", (req, res) => {
   let response = req.body;
   let displayName = response.displayName;
   let uid = response.uid;
-  
-  admin.auth().createUser({
-    uid: uid,
-    displayName: displayName,
-  })
+
+  admin
+    .auth()
+    .createUser({
+      uid: uid,
+      displayName: displayName
+    })
     .then(function(userRecord) {
       // See the UserRecord reference doc for the contents of userRecord.
       console.log("Successfully created new user:", userRecord.uid);
@@ -98,7 +118,6 @@ app.post("/newPlayer", (req, res) => {
     .catch(function(error) {
       console.log("Error creating new user:", error);
     });
-
 });
 
 app.listen(port, () => console.log(`Server listening on port ${port}!`));
