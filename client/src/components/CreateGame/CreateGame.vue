@@ -27,7 +27,7 @@ export default {
   methods: {
     postGame() {
       console.log('Game Created')
-      axios.post('http://192.168.0.49:3000/createGame', {gameName: this.gameName})
+      axios.post('http://10.2.22.30:3000/createGame', {gameName: this.gameName})
       this.$emit("gameIsCreated", this.gameName)
     }
   }
@@ -36,16 +36,35 @@ export default {
 
 <style scoped>
 
+.inputText {
+    font-size: 2rem;
+    font-weight: 200;
+}
+
 .gameInput {
+    color: white;
     padding: 1.2rem;
-    width: 10rem;
-    background-color: grey;
+    width: 20rem;
+    background-color: rgba(0, 132, 255, 0.3);
     font-size: 2.8rem;
 }
 
+.nameInput:focus {
+  background-color: rgba(0, 132, 255, 0.5);
+}
+
 .submitButton {
+    font-size: 1.6rem;
+    font-weight: 400;
     cursor: pointer;
-    padding: 1rem;
+    padding: 1.2rem;
+    border: 1px solid rgba(0, 132, 255, 0.3);
+    transition: 2s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.submitButton:hover {
+  background-color: rgba(0, 132, 255, 0.8);
+  color: white;
 }
 
 </style>
