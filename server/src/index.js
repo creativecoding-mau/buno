@@ -1,10 +1,18 @@
-const express = require("express");
+import express from 'express';
+import bodyParser from 'body-parser';
+import admin from 'firebase-admin';
+import serviceAccount from '../serviceAccountKey.json';
+
 const app = express();
-const cors = require("cors");
-const bodyParser = require("body-parser");
 const port = 3000;
-const admin = require("firebase-admin");
-const serviceAccount = require("./serviceAccountKey.json");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://buno-61925.firebaseio.com"
+});
+const db = admin.database(); // Database instance.
+const ref = db.ref(); // Reference for the Firebase-root.
+const gamesRef = ref.child("Games");
 
 // ALlows CORS VERY IMPORTANT DO NOT REMOVE
 app.use(function (req, res, next) {
@@ -15,14 +23,7 @@ app.use(function (req, res, next) {
 
 app.use(bodyParser.json()); // JSON-parser. Nice to have when fetching data from POST req.
 
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://buno-61925.firebaseio.com"
-});
 
-const db = admin.database(); // Database instance.
-const ref = db.ref(); // Reference for the Firebase-root.
-const gamesRef = ref.child("Games");
 
 // This route is a test environment for pushing/getting data to/from Firebase.
 app.get("/data", (req, res) => {
