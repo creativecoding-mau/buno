@@ -4,7 +4,7 @@
       <v-flex xs12>
             <h1 class="gameListHeader">Game servers</h1>
             <hr class="gameListLine">
-            <li v-for="(game, index) in gameList" :key="index+1" class="gameList">
+            <li v-for="(game, index) in openGames" :key="index+1" class="gameList">
                 {{ game }}
             </li>
       </v-flex>
@@ -23,17 +23,11 @@ export default {
     },
 
     methods: {
-        requestGames() {
-            console.log("Körs")
-            axios.get('http://10.2.22.30:3000/listGameNames').then(response => {
-                this.gameList = response.data;
-            })
-        },
     },
 
     created() {
-        this.requestGames();
-    }
+    },
+    props: ["openGames"]
 
 };
 </script>
