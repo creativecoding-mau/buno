@@ -69,4 +69,9 @@ html, body, #app {
 .flexContainer {
     flex: 1 0 auto;
 }
+
+
+/* Global Form style for all input fields */
+
+
 </style>
