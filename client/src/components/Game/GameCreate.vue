@@ -27,7 +27,7 @@ export default {
   methods: {
     postGame() {
       console.log('Game Created')
-      axios.post('http://10.2.22.30:3000/createGame', {gameName: this.gameName})
+      axios.post('http://localhost:3000/createGame', {gameName: this.gameName})
       this.$emit("gameIsCreated", this.gameName)
     }
   }
